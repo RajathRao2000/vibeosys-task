@@ -13,7 +13,9 @@ export const CommonLayout = () => {
           <NavLink to="/products" className="">
             Products
           </NavLink>
-          <IoIosCart />
+          <NavLink to="/add-to-cart" className="">
+            <IoIosCart />
+          </NavLink>
         </div>
       </header>
       <div className="min-h-[calc(100vh-4rem)] overflow-auto">
