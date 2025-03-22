@@ -8,6 +8,7 @@ function App() {
   return (
     <Routes>
       <Route element={<CommonLayout />}>
+        <Route path="/" element={<AddProduct />} />
         <Route path="/add-product" element={<AddProduct />} />
         <Route path="/products" element={<Products />} />
         <Route path="/add-to-cart" element={<AddProductToCart />} />
