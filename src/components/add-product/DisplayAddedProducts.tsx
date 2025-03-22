@@ -27,11 +27,11 @@ export const DisplayAddedProducts = () => {
       <TableBody>
         {Array.isArray(productsList) &&
           productsList.map((product, index) => (
-            <TableRow>
+            <TableRow key={product.nameOfProduct}>
               <TableCell>{index}</TableCell>
-              <TableCell>{product.name}</TableCell>
+              <TableCell>{product.nameOfProduct}</TableCell>
               <TableCell>{product.category}</TableCell>
-              <TableCell>{product.expiryDate.toLocaleDateString()}</TableCell>
+              <TableCell>{product.expiryDate}</TableCell>
               <TableCell>{product.cost}</TableCell>
             </TableRow>
           ))}

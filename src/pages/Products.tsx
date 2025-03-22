@@ -1,3 +1,4 @@
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -7,34 +8,48 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { RootState } from "@/redux-store/store";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 export const Products = () => {
+  const [searchInput, setSearchInput] = useState("");
   const productsList = useSelector(
     (state: RootState) => state.products.products,
   );
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>No.</TableHead>
-          <TableHead>Name</TableHead>
-          <TableHead>Category</TableHead>
-          <TableHead>Expiry Date</TableHead>
-          <TableHead>cost</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {Array.isArray(productsList) &&
-          productsList.map((product, index) => (
-            <TableRow>
-              <TableCell>{index}</TableCell>
-              <TableCell>{product.name}</TableCell>
-              <TableCell>{product.category}</TableCell>
-              <TableCell>{product.expiryDate.toLocaleDateString()}</TableCell>
-              <TableCell>{product.cost}</TableCell>
-            </TableRow>
-          ))}
-      </TableBody>
-    </Table>
+    <div className="flex flex-col gap-5">
+      <Input
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)}
+      />
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>No.</TableHead>
+            <TableHead>Name</TableHead>
+            <TableHead>Category</TableHead>
+            <TableHead>Expiry Date</TableHead>
+            <TableHead>cost</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {Array.isArray(productsList) &&
+            productsList
+              .filter((product) =>
+                product.nameOfProduct
+                  .toLowerCase()
+                  .includes(searchInput.toLowerCase()),
+              )
+              .map((product, index) => (
+                <TableRow key={product.nameOfProduct}>
+                  <TableCell>{index}</TableCell>
+                  <TableCell>{product.nameOfProduct}</TableCell>
+                  <TableCell>{product.category}</TableCell>
+                  <TableCell>{product.expiryDate.toString()}</TableCell>
+                  <TableCell>{product.cost}</TableCell>
+                </TableRow>
+              ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };

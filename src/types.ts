@@ -1,7 +1,7 @@
 export type productType = {
   id: number;
-  name: string;
+  nameOfProduct: string;
   category: "Finished" | "Semi-Finished" | "Raw";
-  expiryDate: Date;
+  expiryDate: string;
   cost: number;
 };

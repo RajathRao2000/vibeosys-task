@@ -24,7 +24,7 @@ const categorySelect = [
 const formSchema = z.object({
   nameOfProduct: z.string().min(2).max(50),
   category: z.enum(categories),
-  expiryDate: z.date(),
+  expiryDate: z.string(),
   cost: z.coerce.number(),
 });
 export const AddProductForm = () => {
@@ -35,7 +35,7 @@ export const AddProductForm = () => {
     defaultValues: {
       nameOfProduct: "",
       category: "Finished",
-      expiryDate: new Date(),
+      expiryDate: new Date().toString(),
       cost: 0,
     },
   });
@@ -43,6 +43,7 @@ export const AddProductForm = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     dispatch(addNewProduct(values));
+    form.reset();
   }
   return (
     <div>
@@ -91,7 +92,7 @@ export const AddProductForm = () => {
                 <FormLabel>Cost</FormLabel>
                 <FormControl>
                   <DatePicker
-                    value={field.value}
+                    value={new Date(field.value)}
                     onValueChange={(value) => field.onChange(value)}
                   />
                 </FormControl>
