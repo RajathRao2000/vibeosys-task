@@ -43,10 +43,14 @@ export const Products = () => {
         <TableBody>
           {Array.isArray(productsList) &&
             productsList
-              .filter((product) =>
-                product.nameOfProduct
-                  .toLowerCase()
-                  .includes(searchInput.toLowerCase()),
+              .filter(
+                (product) =>
+                  product.nameOfProduct
+                    .toLowerCase()
+                    .includes(searchInput.toLowerCase()) ||
+                  product.category
+                    .toLowerCase()
+                    .includes(searchInput.toLowerCase()),
               )
               .map((product, index) => (
                 <TableRow key={product.nameOfProduct}>

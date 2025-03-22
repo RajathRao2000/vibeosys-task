@@ -22,10 +22,21 @@ const categorySelect = [
   { name: "Raw", value: "Raw" },
 ];
 const formSchema = z.object({
-  nameOfProduct: z.string().min(2).max(50),
+  nameOfProduct: z
+    .string()
+    .min(2)
+    .max(50)
+    .regex(/^[a-zA-Z0-9_]*$/, {
+      message: "Only alphanumeric characters and underscore are allowed",
+    }),
   category: z.enum(categories),
-  expiryDate: z.string(),
-  cost: z.coerce.number(),
+  expiryDate: z.date().refine((date) => new Date(date) > new Date(), {
+    message: "Expiry date must be in the future",
+  }),
+  cost: z.coerce
+    .number()
+    .int("Cost should be an integer")
+    .gt(0, "Cost should be more than 0"),
 });
 export const AddProductForm = () => {
   const dispatch = useDispatch();
