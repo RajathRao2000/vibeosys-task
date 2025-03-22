@@ -30,7 +30,7 @@ const formSchema = z.object({
       message: "Only alphanumeric characters and underscore are allowed",
     }),
   category: z.enum(categories),
-  expiryDate: z.date().refine((date) => new Date(date) > new Date(), {
+  expiryDate: z.coerce.string().refine((date) => new Date(date) > new Date(), {
     message: "Expiry date must be in the future",
   }),
   cost: z.coerce
